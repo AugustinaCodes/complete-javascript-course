@@ -642,3 +642,51 @@ for (const [i, el] of menu3.entries()) {
 }
 
 //console.log(...menu3.entries());
+
+// OPTIONAL CHAINING
+// only if Monday exists, then this open property will be read, but if not, immediately undefined will be returned
+console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.mon?.open);
+
+// example
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  //console.log(day);
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  // openingHours.mon openingHours.tue etc
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// methods
+console.log(restaurant.order?.(0, 1) ?? 'Method does not exist');
+console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exist');
+
+// Arrays
+const users = [{ name: 'jonas', email: 'hello@jonas.io' }];
+console.log(users[0]?.name ?? 'User array empty');
+
+// LOOPING OBJECTS - OBJECT KEYS, VALUES AND ENTRIES
+// Property NAMES
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of properties) {
+  openStr += `${day}, `;
+}
+
+console.log(openStr);
+
+// Property VALUES
+const values = Object.values(openingHours);
+console.log(values);
+
+// Entire object
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key} we are open at ${open} and close at ${close}`);
+}
