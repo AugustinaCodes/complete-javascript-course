@@ -617,3 +617,5 @@ for (const [i, el] of menu3.entries()) {
 }
 
 //console.log(...menu3.entries());
+
+// ENHANCED OBJECT LITERALS
