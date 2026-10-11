@@ -555,8 +555,11 @@ const game = {
   },
 };
 // 1. Create one player array for each team (variables 'players1' and 'players2')
-const [...players1] = game.players[0];
-const [...players2] = game.players[1];
+// my version:
+// const [...players1] = game.players[0];
+// const [...players2] = game.players[1];
+// better one:
+const [players1, players2] = game.players;
 console.log(players1);
 console.log(players2);
 
@@ -573,7 +576,11 @@ const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
 console.log(players1Final);
 
 // 5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
-const { team1, x: draw, team2 } = game.odds;
+//const { team1, x: draw, team2 } = game.odds;
+// better to do nested destructuring:
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
 console.log(team1, draw, team2);
 
 // 6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
@@ -590,7 +597,7 @@ const printGoals = function (...players) {
 };
 
 printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
-printGoals(game.scored);
+printGoals(...game.scored);
 
 // 7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
 const teamLikelyToWin = team1 < team2 && `${game.team1} is more likely to win`;
