@@ -628,6 +628,30 @@ printGoals(...game.scored);
 const teamLikelyToWin = team1 < team2 && `${game.team1} is more likely to win`;
 console.log(teamLikelyToWin);
 
+///////////////////////////////////////
+// Coding Challenge #2
+
+/* 
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+
+BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+      {
+        Gnarby: 1,
+        Hummels: 1,
+        Lewandowski: 2
+      }
+
+GOOD LUCK 😀
+*/
+
 // Looping arrays - The for-of Loop
 
 const menu3 = [...restaurant.starterMenu, ...restaurant.mainMenu];
@@ -689,4 +713,27 @@ console.log(entries);
 
 for (const [key, { open, close }] of entries) {
   console.log(`On ${key} we are open at ${open} and close at ${close}`);
+}
+
+// more practice assignments
+// nullish operator
+// 6.1
+for (let i = 0; i < books2.length; i++) {
+  books2[i].onlineContent ??
+    console.log(
+      `''${books2[i].title}'' provides no data about its online content`,
+    );
+}
+
+// logical assignment operators
+// 7.1
+for (let i = 0; i < books2.length; i++) {
+  books2[i].edition ||= 1;
+}
+
+// 7.2
+// Some of the book objects from the books array have the highlighted property, which by default is set to true. Iterate over the books array, and if the thirdParty.goodreads.rating property is less than 4.2, reassign it with false
+// soltution:
+for (let i = 0; i < books2.length; i++) {
+  books[i].highlighted &&= !(books[i].thirdParty.goodreads.rating < 4.2);
 }
