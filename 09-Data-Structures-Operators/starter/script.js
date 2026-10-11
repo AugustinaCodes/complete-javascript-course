@@ -22,6 +22,27 @@ const mexicanFoods = new Set([
   'garlic',
 ]);
 
+// another ES6 enhancement:
+
+const weekdays2 = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+// ENHANCED OBJECT LITERALS
+
+const openingHours2 = {
+  [weekdays2[3]]: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  [weekdays2[5]]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -29,8 +50,10 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
-  order: function (startedIndex, mainIndex) {
+  // ES6 enhanced object literals
+  openingHours2,
+  // ES6 enhancement, no need to write the word function for object methods
+  order(startedIndex, mainIndex) {
     return [this.starterMenu[startedIndex], this.mainMenu[mainIndex]];
   },
 
@@ -69,6 +92,8 @@ const restaurant = {
     },
   },
 };
+
+console.log(restaurant);
 
 // Object destructuring
 
@@ -617,5 +642,3 @@ for (const [i, el] of menu3.entries()) {
 }
 
 //console.log(...menu3.entries());
-
-// ENHANCED OBJECT LITERALS
