@@ -4,24 +4,6 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
-const italianFoods = new Set([
-  'pasta',
-  'gnocchi',
-  'tomatoes',
-  'olive oil',
-  'garlic',
-  'basil',
-]);
-
-const mexicanFoods = new Set([
-  'tortillas',
-  'beans',
-  'rice',
-  'tomatoes',
-  'avocado',
-  'garlic',
-]);
-
 // another ES6 enhancement:
 
 const weekdays2 = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -804,3 +786,99 @@ for (let i = 0; i < books2.length; i++) {
 for (let i = 0; i < books2.length; i++) {
   books[i].highlighted &&= !(books[i].thirdParty.goodreads.rating < 4.2);
 }
+
+// SETS
+// we need to pass an iterable. And the most common iterable is an array
+const ordersSet = new Set([
+  'Pasta',
+  'Pizza',
+  'Pizza',
+  'Risotto',
+  'Pasta',
+  'Pizza',
+]);
+// the order of elements in the set is irrelevant
+console.log(ordersSet);
+// strings are also iterables
+console.log(new Set('Jonas'));
+// a set can also be empty
+console.log(new Set());
+
+// working with sets
+console.log(ordersSet.size);
+console.log(ordersSet.has('Pizza'));
+console.log(ordersSet.has('Bread'));
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread');
+ordersSet.delete('Risotto');
+//ordersSet.clear(); - deletes all values from a set
+console.log(ordersSet);
+
+// retrieving values out of a set
+// in set there are no indexes and actually there are no ways in getting values out of a set
+console.log(ordersSet[0]); //undefined
+// there is no reason to get data values from a set because if all values are unique and if their orders does not matter then there is no point in retrieving values out of a set
+
+// sets are iterables so we can loop through them
+for (const order of ordersSet) {
+  console.log(order);
+}
+// the main use case of sets is to remove duplicate values of arrays
+// Example
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+const staffUnique = new Set(staff);
+console.log(staffUnique);
+// converting from Set to an Array:
+// spread operator works on all iterables
+const staffUnique2 = [...new Set(staff)];
+console.log(staffUnique2);
+console.log(new Set(staff).size);
+// how many different/unique letters there are:
+console.log(new Set('jonassmith').size);
+
+// NEW OPERATIONS TO MAKE SETS USEFUL
+
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+]);
+
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+// finds the common foods that BOTH sets contain:
+const commonFoods = italianFoods.intersection(mexicanFoods);
+console.log(commonFoods);
+console.log([...commonFoods]);
+
+// all elements in both sets but without any duplicates:
+const italianMexicanFusion = italianFoods.union(mexicanFoods);
+console.log(italianMexicanFusion);
+
+// gives us a new set which will contain all the new elements that are present in the first set but NOT in the second one. Gives us all the elements that are unique in the first set
+// the order here matters
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+// all the unique ingredients except the common ones like tomato and garlic. Removes those common elements
+console.log('Difference italian', uniqueItalianFoods);
+
+const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+console.log(uniqueMexicanFoods);
+
+// gives all the elements that are present in either set but not in both
+// order does not matter
+const uniqueItalianAndMexicanFoods =
+  italianFoods.symmetricDifference(mexicanFoods);
+console.log(uniqueItalianAndMexicanFoods);
+
+// whether one set is COMPLETELY different from the other set
+console.log(italianFoods.isDisjointFrom(mexicanFoods));
