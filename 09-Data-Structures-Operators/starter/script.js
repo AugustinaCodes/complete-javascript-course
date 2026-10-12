@@ -628,6 +628,8 @@ printGoals(...game.scored);
 const teamLikelyToWin = team1 < team2 && `${game.team1} is more likely to win`;
 console.log(teamLikelyToWin);
 
+console.log('-----------CODING CHALLENGE #2------------------');
+
 ///////////////////////////////////////
 // Coding Challenge #2
 
@@ -651,6 +653,71 @@ BONUS: Create an object called 'scorers' which contains the names of the players
 
 GOOD LUCK 😀
 */
+
+// 1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+for (const [goal, player] of game.scored.entries()) {
+  console.log(`Goal ${goal + 1}: ${player}`);
+}
+
+// 2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+const odds = Object.values(game.odds);
+console.log(odds);
+const calculateOdds = function (oddsArr) {
+  let sum2 = 0;
+  for (const odd of oddsArr) {
+    //console.log(odd);
+    sum2 += odd;
+  }
+  return console.log(
+    `The odds average is ${Math.trunc(sum2 / oddsArr.length)}`,
+  );
+};
+calculateOdds(odds);
+
+// 3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+//       Odd of victory Bayern Munich: 1.33
+//       Odd of draw: 3.25
+//       Odd of victory Borrussia Dortmund: 6.5
+// Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+// mu solution
+console.log(`test\ntest2`);
+const { team1: team11 } = game;
+const { team2: team22 } = game;
+const printMessage = `Odd of victory ${team11}: ${team1}\nOdd of draw: ${draw}\nOdd of victory ${team22}: ${team2}`;
+console.log(printMessage);
+
+// video solution
+for (const [team, odd] of Object.entries(game.odds)) {
+  const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
+  console.log(`Odd of ${teamStr} ${odd}`);
+}
+
+// BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+// {
+//   Gnarby: 1,
+//   Hummels: 1,
+//   Lewandowski: 2
+// }
+const { scored } = game;
+console.log(scored);
+const createObject = function (scorersObj) {
+  const scorers = {};
+  for (const player of scorersObj) {
+    console.log(player);
+    // got stuck here:
+    //scorers[player] = score + 1;
+    // solution:
+    scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+  }
+
+  return console.log(scorers);
+};
+
+createObject(scored);
+
+//console.log(Object.entries(scored));
+
+console.log('-------------CODING CHALLENGE FINISH----------------');
 
 // Looping arrays - The for-of Loop
 
