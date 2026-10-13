@@ -699,6 +699,92 @@ createObject(scored);
 
 //console.log(Object.entries(scored));
 
+console.log('---------------CODING CHALLENGE #3----------------------');
+
+///////////////////////////////////////
+// Coding Challenge #3
+
+/* 
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
+*/
+
+const gameEvents = new Map([
+  [17, '⚽️ GOAL'],
+  [36, '🔁 Substitution'],
+  [47, '⚽️ GOAL'],
+  [61, '🔁 Substitution'],
+  [64, '🔶 Yellow card'],
+  [69, '🔴 Red card'],
+  [70, '🔁 Substitution'],
+  [72, '🔁 Substitution'],
+  [76, '⚽️ GOAL'],
+  [80, '⚽️ GOAL'],
+  [92, '🔶 Yellow card'],
+]);
+
+// 1. Create an array 'events' of the different game events that happened (no duplicates)
+console.log(gameEvents);
+console.log([...gameEvents][0]);
+const gameArr = [...gameEvents];
+const uniqueGames = [];
+for (const [key, value] of gameArr) {
+  uniqueGames.push(value);
+}
+console.log(uniqueGames);
+const uniqueGamesSet = new Set(uniqueGames);
+console.log(uniqueGamesSet);
+
+// If i make this solution more simple:
+const uniqueGames2 = [];
+for (const [key, value] of [...gameEvents]) {
+  uniqueGames2.push(value);
+}
+console.log(new Set(uniqueGames2));
+// I forgot to convert this to an array
+
+// video solution
+console.log(gameEvents.values());
+const uniqueEvents2 = [...new Set(gameEvents.values())];
+console.log(uniqueEvents2);
+
+// 2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+gameEvents.delete(64);
+
+// 3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+const averageEventTime = [];
+for (const [key, value] of gameEvents) {
+  averageEventTime.push(key);
+}
+console.log(
+  `An event happened, on average every ${90 / averageEventTime.length} minutes`,
+);
+// video solution:
+console.log(
+  `An event happened, on average every ${90 / gameEvents.size} minutes`,
+);
+// or if we wanna include the 92 minute:
+const time3 = [...gameEvents.keys()].pop();
+console.log(time3);
+console.log(
+  `An event happened, on average every ${time3 / gameEvents.size} minutes`,
+);
+
+// 4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+// [FIRST HALF] 17: ⚽️ GOAL
+for (const [min, event] of gameEvents) {
+  min < 45
+    ? console.log(`[FIRST HALF] ${min}: ${event}`)
+    : console.log(`[SECOND HALF] ${min}: ${event}`);
+}
+
 console.log('-------------CODING CHALLENGE FINISH----------------');
 
 // Looping arrays - The for-of Loop
@@ -882,3 +968,80 @@ console.log(uniqueItalianAndMexicanFoods);
 
 // whether one set is COMPLETELY different from the other set
 console.log(italianFoods.isDisjointFrom(mexicanFoods));
+
+// MAPS FUNDAMENTALS
+
+const restMap = new Map();
+restMap.set('name', 'Classico Italiano');
+restMap.set(1, 'Firenze, Italy');
+restMap.set(2, 'Lisbon, Portugal');
+console.log(restMap);
+
+restMap
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open')
+  .set(false, 'We are closed');
+console.log(restMap);
+
+console.log(restMap.get('name'));
+console.log(restMap.get(true));
+console.log(restMap.get(1));
+
+const time = 21;
+const checkTime = restMap.get(
+  time > restMap.get('open') && time < restMap.get('close'),
+);
+console.log(checkTime);
+
+console.log(restMap.has('categories'));
+restMap.delete(2);
+// restMap.clear()
+const arr5 = [1, 2];
+restMap.set(arr5, 'Test');
+restMap.set(document.querySelector('h1'), 'heading');
+console.log(restMap);
+console.log(restMap.size);
+
+console.log(restMap.get(arr5));
+
+// MAPS ITERATION
+
+const question = new Map([
+  ['question', 'What is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Correct'],
+  [false, 'Try again'],
+]);
+console.log(question);
+// Convert object to map
+console.log(Object.entries(openingHours));
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+// Quiz app
+console.log(question.get('question'));
+
+for (const [key, value] of question) {
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+// const answer = Number(prompt('Your answer'));
+// console.log(answer);
+
+// answer === question.get('correct')
+//   ? console.log(question.get(true))
+//   : console.log(question.get(false));
+
+// // or video solution, since we are getting the boolean value
+// console.log(question.get(question.get('correct') === answer));
+
+// converting the map back to array
+console.log([...question]);
+//console.log(question.entries());
+console.log([...question.keys()]);
+console.log([...question.values()]);
