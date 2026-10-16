@@ -250,38 +250,110 @@ BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 GOOD LUCK 😀
 */
 
+// MY SOLUTION
+
+// const poll = {
+//   question: 'What is your favourite programming language?',
+//   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+//   // This generates [0, 0, 0, 0]. More in the next section
+//   answers: new Array(4).fill(0),
+//   registerNewAnswer() {
+//     if (
+//       !this.options.includes('What is your favourite programming language?')
+//     ) {
+//       this.options.unshift(this.question);
+//     }
+//     const userPrompt = `${this.options.toString().replaceAll(',', '\n')}\n(Write option number)`;
+//     const userAnswer = Number(prompt(userPrompt));
+
+//     if (userAnswer < 4 && userAnswer >= 0) {
+//       this.answers[userAnswer]++;
+//       return this.displayResults(this.answers);
+//     } else {
+//       console.log('Wrong number');
+//     }
+//   },
+//   displayResults(type) {
+//     if (Array.isArray(type)) {
+//       console.log(type);
+//     } else if (typeof type === 'string') {
+//       console.log(`Poll results are ${type}`);
+//     }
+//   },
+// };
+
+// document
+//   .querySelector('.poll')
+//   .addEventListener('click', () => poll.registerNewAnswer());
+
+//   VIDEO SOLUTION
+
 const poll = {
   question: 'What is your favourite programming language?',
   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
   // This generates [0, 0, 0, 0]. More in the next section
   answers: new Array(4).fill(0),
   registerNewAnswer() {
-    if (
-      !this.options.includes('What is your favourite programming language?')
-    ) {
-      this.options.unshift(this.question);
-    }
-    const userPrompt = `${this.options.toString().replaceAll(',', '\n')}\n(Write option number)`;
-    const userAnswer = Number(prompt(userPrompt));
+    // Get answer
+    const answer = Number(
+      prompt(
+        `${this.question}\n${this.options.join('\n')}\n(Write option number)`,
+      ),
+    );
+    console.log(answer);
 
-    if (userAnswer < 4 && userAnswer >= 0) {
-      this.answers[userAnswer]++;
-      return this.displayResults(this.answers);
-    } else {
-      console.log('Wrong number');
-    }
+    // Register answer
+    typeof answer === 'number' &&
+      answer < this.answers.length &&
+      this.answers[answer]++;
+
+    this.displayResults();
+    this.displayResults('string');
   },
-  displayResults(type) {
-    if (Array.isArray(type)) {
-      console.log(type);
-    } else if (typeof type === 'string') {
-      console.log(`Poll results are ${type}`);
+  displayResults(type = 'array') {
+    if (type === 'array') {
+      console.log(this.answers);
+    } else if (type === 'string') {
+      console.log(`Poll results are ${this.answers.join(', ')}`);
     }
   },
 };
 
 document
   .querySelector('.poll')
-  .addEventListener('click', () => poll.registerNewAnswer());
+  .addEventListener('click', poll.registerNewAnswer.bind(poll));
+
+// BONUS
+poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
 
 console.log('-------------CODING CHALLENGE #1 END----------------');
+
+// IMMEDIATELY INVOKED FUNCTION EXPRESSIONS (IIFE)
+
+// Sometimes we need a function that is only executed once and then never again. Basically a function that disappears right after it's called once.
+
+const runOnce = function () {
+  console.log('This will never run again');
+};
+runOnce();
+
+// this transformed function statement into function expression:
+// IIFE
+(function () {
+  console.log('This will never run again');
+})();
+
+// same if we wanna use arrow functions:
+(() => console.log('This will also never run again'))();
+
+// functions create scopes and one scope does not have access to variables from an inner scope. So we say all data defined inside a scope is private.
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+// we cannot access is private
+//console.log(isPrivate);
+console.log(notPrivate);
+
+// In JS, IIFE are not that used often anymore
