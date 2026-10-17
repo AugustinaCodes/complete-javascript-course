@@ -84,6 +84,20 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+// in this for each function, we want to produce a side effect so we are actually doing something to the account object and there is no need to return anything (as we are modifying an object)
+const createUserNames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+createUserNames(accounts);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
