@@ -65,12 +65,111 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
+/////////////////////////////////////////////////
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+// SLICE - does not change the original array
+console.log(arr.slice(2));
+// just like in strings, the end parameter is not included in the output
+console.log(arr.slice(2, 4));
+// this takes the last two elements of the array
+console.log(arr.slice(-2));
+console.log(arr.slice(-1));
+console.log(arr.slice(1, -2));
+// same thing, creating a shallow copy:
+console.log(arr.slice());
+console.log([...arr]);
+
+// SPLICE - changes the original array (mutates the array)
+//console.log(arr.splice(2));
+arr.splice(-1);
+console.log(arr);
+arr.splice(1, 2);
+console.log(arr);
+
+// REVERSE - does mutate original array
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'f'];
+console.log(arr2.reverse());
+console.log(arr2);
+
+// CONCAT - does NOT mutate original array
+const letters = arr.concat(arr2);
+console.log(letters);
+console.log([...arr, ...arr2]);
+
+// JOIN
+// result is a string with the separator we specified
+console.log(letters.join(' - '));
+
+// THE NEW AT METHOD
+const arr3 = [23, 11, 64];
+console.log(arr3[0]);
+// same thing but with the at method:
+console.log(arr3.at(0));
+
+// getting last array element
+console.log(arr3[arr3.length - 1]);
+console.log(arr3.slice(-1)[0]);
+// but with at method:
+console.log(arr3.at(-1));
+console.log(arr3.at(-2));
+
+// the at method also works on strings
+console.log('jonas'.at(0));
+console.log('jonas'.at(-1));
+
+// LOOPING ARRAYS - FOR EACH
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for (const movement of movements) {
+// how we access the counter variable in for of loop:
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(movement)}`);
+  }
+}
+
+// for each is technically a higher-order function
+// in the forEach method, it will pass the array's each element into the function as an argument
+console.log('------------FOR EACH ---------------');
+
+movements.forEach(function (mov, i, arr) {
+  // for each passes, the current element, the index and the entire array that we are looping
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${mov}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`);
+  }
+});
+// 0: function(200)
+// 1: function(450)
+// 2: function(400)
+// ...
+
+// FOR EACH WITH MAPS AND SETS
+
+// Maps
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
 
-/////////////////////////////////////////////////
+// Sets
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+currenciesUnique.forEach(function (value, _, map) {
+  // a set does not have keys and it does not have indexes either
+  console.log(`${_}: ${value}`);
+});
+
+// PROJECT BANKIST APP
