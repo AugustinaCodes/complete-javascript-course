@@ -423,3 +423,52 @@ const boardPassengers = function (n, wait) {
 
 const perGroup = 1000;
 boardPassengers(180, 3);
+
+console.log('------------CODING CHALLENGE #2------------------');
+
+///////////////////////////////////////
+// Coding Challenge #2
+
+/* 
+This is more of a thinking challenge than a coding challenge 🤓
+
+Take the IIFE below and at the end of the function, attach an event listener that changes the color of the selected h1 element ('header') to blue, each time the BODY element is clicked. Do NOT select the h1 element again!
+
+And now explain to YOURSELF (or someone around you) WHY this worked! Take all the time you need. Think about WHEN exactly the callback function is executed, and what that means for the variables involved in this example.
+
+GOOD LUCK 😀
+*/
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  const body = document.querySelector('body');
+  body.addEventListener('click', () => {
+    header.style.color = 'blue';
+  });
+})();
+
+// So we call the first IIFE function and inside it we have another function which is the event listener function. because we use the value header, which is outside the inner function's scope, JS create a closure. So the inner function will have the reference/memory of the outer function's variables. So then when the event listener function is executed, it has that variable, hence we can use it to change the element's color.
+
+// Video solution explanation:
+// The explanation is closure. In this example, the closure is necessary or useful because by the time this callback here is executed this IIFE (immediately invoked function expression) is now long gone. It has been executed and with it the header variable here is basically gone as well. Even though the environment in which the event listener function was created is gone it is still able to access the variables that were created in that variable by the time the function was born. Therefore, the function remembers all the variables present at the time of its birth. We can also say that the header is in the backpack of the event listener function.
+
+console.log('-----------CODING CHALLENGE #2 END---------------');
+
+// more examples of closures:
+// using let:
+for (let i = 0; i < 3; i++) {
+  const log = () => {
+    console.log(i); //0, 1, 2
+  };
+  setTimeout(log, 100);
+}
+
+// using var:
+for (var i = 0; i < 3; i++) {
+  const log = () => {
+    console.log(i); //3, 3, 3
+  };
+  setTimeout(log, 100);
+}
