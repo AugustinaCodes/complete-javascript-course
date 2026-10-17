@@ -84,6 +84,12 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcDisplayBalance(account1.movements);
+
 // in this for each function, we want to produce a side effect so we are actually doing something to the account object and there is no need to return anything (as we are modifying an object)
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
@@ -296,3 +302,34 @@ console.log(deposits);
 
 const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals);
+
+// THE REDUCE METHOD
+
+// accumulator is like a snowball
+// to the reduce method we also pass a second parameter, which is basically the initial value of the accumulator at the very beginning of the iteration
+// const balance = movements.reduce(function (acc, cur, i, arr) {
+//   console.log(`Iteration number ${i}: ${acc}`);
+
+//   return acc + cur;
+// }, 0);
+
+// using arrow function:
+// here the accumulator keeps track of the current sum
+const balance = movements.reduce((acc, cur, i, arr) => acc + cur, 0);
+console.log(balance);
+
+// using the for of loop now
+// let balance2 = 0;
+// for (const mov of movements) balance2 += mov;
+// console.log(balance2);
+
+// Maximum value
+// and here the accumulator keeps track of the current maximum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+
+console.log(max);
+
+// we should always think what the accumulator and the core value to be and how they should interact
