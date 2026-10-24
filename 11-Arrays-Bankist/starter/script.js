@@ -817,3 +817,31 @@ console.log(groupedByActivity);
 
 const groupedAccounts = Object.groupBy(accounts, ({ type }) => type);
 console.log(groupedAccounts);
+
+// MORE WAYS OF CREATING AND FILLING ARRAYS
+
+// with the Array method, when we pass only one argument, then it creates a new empty argument with that length
+// empty arrays + fill method
+const x5 = new Array(7);
+console.log(x5);
+//x5.fill(1);
+x5.fill(1, 3, 5);
+console.log(x5);
+
+// Array.fom
+const y5 = Array.from({ length: 7 }, () => 1);
+console.log(y5);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// converting to Array from iterables
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', '')),
+  );
+  console.log(movementsUI);
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+});
