@@ -520,3 +520,18 @@ console.log(accounts);
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
+
+// The new findLast and findLastIndex Methods - counts from the end
+
+console.log(movements);
+// Looks from the end of the array
+const lastWithdrawal = movements.findLast(mov => mov < 0);
+console.log(lastWithdrawal);
+
+const latestLargeMovementIndex = movements.findLastIndex(
+  mov => Math.abs(mov) > 1000,
+);
+console.log(latestLargeMovementIndex);
+console.log(
+  `Your latest large movement was ${movements.length - latestLargeMovementIndex} movements ago`,
+);
