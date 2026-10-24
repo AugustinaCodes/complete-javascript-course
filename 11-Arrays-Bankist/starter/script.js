@@ -67,10 +67,12 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // writing code here in the global scope is usually not a good practice so it's best to write a function
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
@@ -217,6 +219,13 @@ btnClose.addEventListener('click', function (e) {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
@@ -745,3 +754,41 @@ const heaviestFetchBreed = Math.max(...fetchWeights);
 console.log(heaviestFetchBreed);
 
 console.log('----------CODING CHALLENGE #4 END--------------');
+
+// SORT METHOD
+
+// strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// mutates the original array
+console.log(owners.sort());
+console.log(owners);
+
+// numbers
+// sort method does the sorting based on strings
+console.log(movements);
+// console.log(movements.sort());
+// console.log(movements);
+// a - current value and b - next value
+// think of a and b being two consecutive numbers in the array
+
+// return < 0 then A will be before B (keep order)
+// return > 0 then B will be before A (switch order)
+
+// ascending
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+// if a - b is a positive number, then a positive number is returned
+// and if a - b will be negative, then a negative number is returned
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// descending
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+movements.sort((a, b) => b - a);
+
+console.log(movements);
