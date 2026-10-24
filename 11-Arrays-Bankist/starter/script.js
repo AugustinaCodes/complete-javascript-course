@@ -184,6 +184,20 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   console.log(currentAccount);
@@ -535,3 +549,47 @@ console.log(latestLargeMovementIndex);
 console.log(
   `Your latest large movement was ${movements.length - latestLargeMovementIndex} movements ago`,
 );
+
+// SOME AND EVERY METHODS
+
+// SOME method
+// EQUALITY
+console.log(movements.includes(-130));
+
+// with SOME, we can pass a condition; CONDITION, if there is any value for which this condition is true, then the some method will return true
+const anyDeposits = movements.some(mov => mov > 5000);
+console.log(anyDeposits);
+
+// EVERY method
+// only returns true if all of the elements in the array satisfy the condition
+console.log(movements.every(mov => mov > 0));
+console.log(account4.movements.every(mov => mov > 0));
+
+// Separate callback
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+
+// FLAT AND FLATMAP METHODS
+const arr4 = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr4);
+console.log(arr4.flat());
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// The flat method only goes one level deep when flattening the array
+// That's why we have the depth argument:
+console.log(arrDeep.flat(2));
+// flat
+const overallBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
+
+// We often map the values then flat them. Hence why the flatMap method was introduced. Combines flat and map method into one
+
+// flatMap
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance2);
+//flatMap method only goes down 1 level deep, so if you need to go down more levels deep, you will need to use the flat method as well
