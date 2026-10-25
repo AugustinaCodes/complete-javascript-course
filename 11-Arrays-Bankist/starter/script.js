@@ -845,3 +845,75 @@ labelBalance.addEventListener('click', function () {
   console.log(movementsUI);
   const movementsUI2 = [...document.querySelectorAll('.movements__value')];
 });
+
+// Non-destructive alternatives: toReversed, toSorted, toSpliced, with
+
+console.log(movements);
+const reversedMovements = movements.toReversed();
+console.log(reversedMovements);
+
+// toSorted (sort), toSpliced (splice)
+//movements[1] = 2000;
+const newMovements = movements.with(1, 2000);
+console.log(movements);
+console.log(newMovements);
+
+// Array methods practice
+
+// 1.
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+console.log(bankDepositSum);
+
+// 2.
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(numDeposits1000);
+
+// we we can't use count++
+// for example, let a = 10; console.log(a++) - 10; console.log(a) - 11
+// a++ returns the current value and then increments AFTER
+
+// but to correct this, we can use this instead ++a. This one increments the value first and returns the incremented value.
+
+// 3.
+const { deposits2, withdrawals2 } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits2 += cur) : (sums.withdrawals2 += cur);
+      // another version:
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+      // you always need to return the accumulator
+      return sums;
+    },
+    { deposits2: 0, withdrawals2: 0 },
+  );
+
+console.log(deposits2, withdrawals2);
+
+// 4.
+// this is a nice title -> This Is a Nice Title
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+  return capitalize(titleCase);
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
