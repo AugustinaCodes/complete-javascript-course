@@ -293,7 +293,7 @@ console.log(Number.isInteger(23));
 console.log(Number.isInteger(23.0));
 console.log(Number.isInteger(23 / 0));
 
-// Math and Rounding
+// MATH AND ROUNDING
 
 console.log(Math.sqrt(25));
 console.log(25 ** (1 / 2));
@@ -338,7 +338,7 @@ console.log((2.7).toFixed(0));
 console.log((2.7).toFixed(3));
 console.log(+(2.345).toFixed(2));
 
-// The remainder operator
+// THE REMAINDER OPERATOR
 
 // returns a reminder of a division
 console.log(5 % 2);
@@ -364,3 +364,99 @@ labelBalance.addEventListener('click', function () {
     if (i % 3 === 0) row.style.backgroundColor = 'blue';
   });
 });
+
+// NUMERIC SEPARATORS
+// 287,460,000,000
+const diameter = 287_460_000_000;
+console.log(diameter);
+
+const priceCents = 345_99;
+console.log(priceCents);
+
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+console.log(transferFee1, transferFee2);
+
+const PI = 3.14_15;
+console.log(PI);
+
+// the underscore will not work in strings
+console.log(Number('230_000'));
+console.log(parseInt('230_000'));
+
+// WORKING WITH BIG INT
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 1);
+console.log(2 ** 53 + 2);
+console.log(2 ** 53 + 3);
+console.log(2 ** 53 + 4);
+
+console.log(74893759823759831759137592759823457985n);
+console.log(BigInt(748937598237595));
+
+// operations
+console.log(10000n + 10000n);
+console.log(8947592483752348957n * 10000000n);
+//console.log(Math.sqrt(16n));
+
+// can't mix big int with normal numbers
+const huge = 83475498375928375983275n;
+const hum = 23;
+console.log(huge * BigInt(hum));
+
+// Exceptions
+console.log(20n > 15);
+console.log(20n === 20);
+console.log(typeof 20n);
+console.log(20n == 20);
+console.log(20n == '20');
+
+console.log(huge + ' is REALLY big!!');
+
+// Divisions
+console.log(10n / 3n);
+console.log(10 / 3);
+
+// CREATING DATES
+
+// Create a date
+const now = new Date();
+console.log(now);
+
+console.log(new Date('Oct 27 2026 19:25:38'));
+console.log(new Date('December 24, 2015'));
+// '2019-11-18T21:31:17.178Z' letter Z means UTC
+console.log(new Date(account1.movementsDates[0]));
+
+// the month we are in javascript is 0 based (as here we input 10 but got November)
+// year, month, day, hour, minute, second
+console.log(new Date(2037, 10, 19, 15, 23, 5));
+// this will also correct itself. as November only has 30 days so 33 becomes just Dec 3rd
+console.log(new Date(2037, 10, 33));
+
+// Unix time:
+console.log(new Date(0));
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+// Working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+// the time/timestamp that has passed since Jan 1st 1970
+console.log(future.getTime()); //2142249780000
+
+console.log(new Date(2142249780000)); //and here we get the date from the timestamp
+
+console.log(Date.now()); //gives us the timestamp
+
+future.setFullYear(2040);
+console.log(future);
